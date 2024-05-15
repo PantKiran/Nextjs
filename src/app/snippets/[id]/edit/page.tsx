@@ -1,11 +1,27 @@
+import SnippetEditForm from "@/components/snippet-edit-form";
+import { db } from "@/db";
+import { notFound } from "next/navigation";
+
 interface SnippetEditPageProps {
   params: {
     id: string;
   };
 }
-const SnippetEditPage = (props: SnippetEditPageProps) => {
+const SnippetEditPage = async (props: SnippetEditPageProps) => {
   const id = parseInt(props.params.id);
-  return <div>Snippet Edit Page with id {id}</div>;
+  const Snippet = await db.snippet.findFirst({
+    where: {
+      id,
+    },
+  });
+  if (!Snippet) {
+    return notFound();
+  }
+  return (
+    <div>
+      <SnippetEditForm snippet={Snippet} />
+    </div>
+  );
 };
 
 export default SnippetEditPage;
