@@ -2,7 +2,6 @@ import { db } from "@/db";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-
 const SnippetCreatePage = () => {
   async function createSnippet(formData: FormData) {
     // this needs to be a server action!
@@ -11,13 +10,14 @@ const SnippetCreatePage = () => {
     const title = formData.get("title") as string;
     const code = formData.get("code") as string;
     // create a record in database
+    if (!title || !code) return;
     const snippet = await db.snippet.create({
       data: {
         title,
         code,
       },
     });
-    console.log(snippet);
+
     // redirect the user back to the root route
     redirect("/");
   }
