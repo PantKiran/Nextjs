@@ -1,5 +1,7 @@
 import { db } from "@/db";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+
 
 const SnippetCreatePage = () => {
   async function createSnippet(formData: FormData) {
