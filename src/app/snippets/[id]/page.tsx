@@ -7,13 +7,12 @@ interface SnippetShowPagePropps {
   };
 }
 const SnippetShowPage = async (props: SnippetShowPagePropps) => {
-  console.log(props);
   const Snippet = await db.snippet.findFirst({
     where: {
       id: parseInt(props.params.id),
     },
   });
-  console.log(Snippet);
+
   if (!Snippet) {
     return notFound();
   }

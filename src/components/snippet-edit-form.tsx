@@ -11,9 +11,10 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
   const handleEditorChange = (value: string = "") => {
     setCode(value);
   };
+  const editSnippetAction = editSnippet.bind(null, snippet.id, code);
+
   return (
     <div>
-      
       <Editor
         height="40vh"
         theme="vs-dark"
@@ -22,6 +23,11 @@ const SnippetEditForm = ({ snippet }: SnippetEditFormProps) => {
         options={{ minimap: { enabled: false } }}
         onChange={handleEditorChange}
       />
+      <form action={editSnippetAction}>
+        <button type="submit" className="p-2 border rounded">
+          Save
+        </button>
+      </form>
     </div>
   );
 };
