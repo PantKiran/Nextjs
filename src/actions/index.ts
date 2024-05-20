@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { db } from "@/db";
-import { message } from "antd";
+import { revalidatePath } from "next/cache";
 
 const editSnippet = async (id: number, code: string) => {
   await db.snippet.update({
@@ -20,6 +20,7 @@ export const deleteSnippet = async (id: number) => {
       id,
     },
   });
+  revalidatePath('/')
   redirect(`/`);
 };
 export default editSnippet;
@@ -42,8 +43,8 @@ export async function createSnippet(
         message: "code must be longer",
       };
     }
-    // create a record in database
 
+    // create a record in database
     await db.snippet.create({
       data: {
         title,
@@ -59,6 +60,7 @@ export async function createSnippet(
       return "Something went wrong...";
     }
   }
+  revalidatePath('/')
   // redirect the user back to the root route
   redirect("/");
 }

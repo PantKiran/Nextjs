@@ -1,7 +1,6 @@
 "use client";
-import { createSnippet } from "@/actions";
-
 import { useFormState } from "react-dom";
+import { createSnippet } from "@/actions";
 const SnippetCreatePage = () => {
   const [formState, action] = useFormState(createSnippet, { message: "" });
   return (
@@ -31,7 +30,7 @@ const SnippetCreatePage = () => {
         </div>
         {formState?.message ? (
           <div className="my-2 p-2 bg-red-200 border rounded border-red-400">
-            {formState.message}
+            {formState?.message}
           </div>
         ) : null}
         <button type="submit" className="border rounded p-2 bg-blue-200">
